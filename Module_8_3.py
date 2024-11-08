@@ -11,6 +11,13 @@ class IncorrectCarNumbers(Exception):
 class Car:
     def __init__(self, model, vin, numbers):
         self.model = model
+
+        if self.__is_valid_vin(vin):
+            self.__vin = vin
+
+        if self.__is_valid_numbers(numbers):
+            self.__numbers = numbers
+            
         self.__vin = self.__is_valid_vin(vin)  # Проверяем vin при создании объекта
         self.__numbers = self.__is_valid_numbers(numbers)  # Проверяем номера при создании объекта
 
@@ -19,14 +26,14 @@ class Car:
             raise IncorrectVinNumber('Некорректный тип vin номер')
         if vin_number < 1000000 or vin_number > 9999999:
             raise IncorrectVinNumber('Неверный диапазон для vin номера')
-        return vin_number
+        return True
 
     def __is_valid_numbers(self, numbers):
         if not isinstance(numbers, str):
             raise IncorrectCarNumbers('Некорректный тип данных для номеров')
         if len(numbers) != 6:
             raise IncorrectCarNumbers('Неверная длина номера')
-        return numbers
+        return True
 
 #Пример выполняемого кода:
 try:
